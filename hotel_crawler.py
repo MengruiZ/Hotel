@@ -8,7 +8,7 @@ import os
 
 def city_to_english(city_name):
     pinyin = lazy_pinyin(city_name)
-    return '_'.join(word.capitalize() for word in pinyin)
+    return ''.join(word.capitalize() for word in pinyin)
 
 def crawler():
     # 设置无头浏览器
@@ -49,7 +49,7 @@ def crawler():
     dates = ["2025-05-29", "2025-05-30", "2025-05-31", "2025-06-01", "2025-06-02", "2025-06-03", "2025-06-04"]
     for city in cities:
         results = []
-        print(f"正在处理城市：{city}")
+        print(f"city：{city_to_english(city)}")
         base_url = f"https://hrewards.huazhu.com/hotel?cityName={city}&checkInDate=2025-05-29&checkOutDate=2025-05-30&keyword="
 
         # 打开第一页
@@ -66,13 +66,13 @@ def crawler():
             except:
                 continue
         max_page = max(page_numbers) if page_numbers else 1
-        print(f"共 {max_page} 页")
+        print(f"total pages: {max_page} ")
         for date in dates:
             checkin = date
             checkout = pd.to_datetime(date) + pd.Timedelta(days=1)
             checkout = checkout.strftime("%Y-%m-%d")
             for page in range(1, max_page + 1):
-                print(f"city:{city}, page: {page}, checkin: {checkin}, checkout: {checkout}")
+                print(f"city:{city_to_english(city)}, page: {page}, checkin: {checkin}, checkout: {checkout}")
                 url = f"https://hrewards.huazhu.com/hotel?cityName={city}&checkInDate={checkin}&checkOutDate={checkout}&keyword=&pageIndex={page}"
                 driver.get(url)
                 time.sleep(4)
@@ -105,7 +105,7 @@ def crawler():
         df = pd.DataFrame(results)
         df.to_csv(f"hotels2/{city_to_english(city)}.csv", index=False, encoding="utf-8-sig")
     driver.quit()
-    print("所有数据抓取完毕并已保存")
+    print("Done!")
 
 def main():
     os.makedirs("hotels", exist_ok=True)

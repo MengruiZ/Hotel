@@ -72,7 +72,7 @@ def remove_parentheses(text):
     return re.sub(r"[（(][^）)]+[）)]", "", text)
 def city_to_english(city_name):
     pinyin = lazy_pinyin(city_name)
-    return '_'.join(word.capitalize() for word in pinyin)
+    return ''.join(word.capitalize() for word in pinyin)
 
 def geocode_amap(city, location, hotel):
     AMAP_URL = 'https://restapi.amap.com/v3/geocode/geo?parameters'
