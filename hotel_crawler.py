@@ -103,7 +103,7 @@ def crawler():
 
         # 保存数据
         df = pd.DataFrame(results)
-        df.to_csv(f"hotels2/{city_to_english(city)}.csv", index=False, encoding="utf-8-sig")
+        df.to_csv(f"hotels/{city_to_english(city)}.csv", index=False, encoding="utf-8-sig")
     driver.quit()
     print("Done!")
 
