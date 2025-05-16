@@ -63,7 +63,7 @@ def process_csv_to_txt(input_csv):
     df['格式化地址'] = formatted_address
 
     # 写入 txt，列之间用 \t 分隔
-    output_txt='txt2/'+city_to_english(city)+'.txt'
+    output_txt='txt/'+city_to_english(city)+'.txt'
     df.to_csv( output_txt,sep='\t', index=False)
 
     print(f" 处理完成，已保存为：{output_txt}")
@@ -89,7 +89,10 @@ def geocode_amap(city, location, hotel):
             f"{city}市{clean_loc}",
             f"{city}市{clean_loc}{hotel}",
         ])
-
+    address_candidates.extend([
+        f"{city}市{hotel}",
+        f"{city}市{location}",
+    ])
     for addr in address_candidates:
         for key in (AMAP_KEY1, AMAP_KEY2):  # 先尝试 KEY2，失败后用 KEY1
             params = {"address": addr, "key": key}
@@ -138,7 +141,7 @@ def read_csvs_in_order(folder_path):
     for file_name in files:
         file_path = os.path.join(folder_path, file_name)
         process_csv_to_txt(file_path)
-        # is_effectively_empty(file_path)
+
 if __name__ == '__main__':
     os.makedirs("txt", exist_ok=True)
     read_csvs_in_order("hotels")
