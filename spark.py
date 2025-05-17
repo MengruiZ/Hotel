@@ -49,6 +49,8 @@ from pyspark import SparkConf, SparkContext
 conf = SparkConf()
 conf.set("spark.executor.extraLibraryPath", "/home/mengrui_zhang/hadoop/lib/native")
 conf.set("spark.driver.extraLibraryPath", "/home/mengrui_zhang/hadoop/lib/native")
+conf.set("spark.driver.bindAddress", "127.0.0.1")
+conf.set("spark.driver.host", "127.0.0.1")
 sc = SparkContext(conf=conf)
 # 初始化 SparkSession
 spark = SparkSession.builder.appName("Festival Hotel Price Ranking").getOrCreate()
