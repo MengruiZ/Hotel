@@ -29,7 +29,7 @@ def clean_hotel_data():
         df_cleaned = df_cleaned[df_cleaned["酒店名称"].isin(hotel_valid["酒店名称"])]
 
         all_data.append(df_cleaned)
-        print(f"已清洗完成：{output_file}，剩余记录数：{len(df_cleaned)}")
+        print(f"clean：{file}，total：{len(df_cleaned)}")
 
     # 保存清洗后的数据
     merged_df = pd.concat(all_data, ignore_index=True)
