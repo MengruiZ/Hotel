@@ -18,7 +18,9 @@ def clean_hotel_data():
             df["优惠价"] = pd.to_numeric(df["优惠价"], errors="coerce")
 
             # 去除以下缺失值的记录
-            df_cleaned = df.dropna(subset=["区县", "优惠价", "酒店等级"])
+            df_cleaned = df.dropna(subset=["优惠价", "酒店等级"]).loc[
+                (df["区县"].notna()) & (df["区县"].astype(str) != "[]")
+                ]
             df_cleaned = df_cleaned[df_cleaned.apply(lambda x: str(x["城市"]) in str(x["标准城市"]), axis=1)]
             # 对每家酒店保留日期数 >= 7 的
             df_cleaned["日期"] = pd.to_datetime(df_cleaned["日期"], errors="coerce")  # 确保日期格式正确
