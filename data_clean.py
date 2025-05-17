@@ -5,6 +5,7 @@ def clean_hotel_data():
     os.makedirs("cleaned", exist_ok=True)
     files = [f for f in os.listdir("txt") if f.endswith(".txt")]
     output_file = "cleaned/cleaned_hotels.txt"
+    log_file = "cleaned/clean_log.txt"
     all_data = []
     for file in files:
         # 读取 TSV 文件（制表符分隔）
@@ -29,7 +30,9 @@ def clean_hotel_data():
         df_cleaned = df_cleaned[df_cleaned["酒店名称"].isin(hotel_valid["酒店名称"])]
 
         all_data.append(df_cleaned)
-        print(f"clean：{file}，total：{len(df_cleaned)}")
+        log_line = f"clean：{file}，total：{len(df_cleaned)}"
+        print(log_line)
+        log.write(log_line + "\n")
 
     # 保存清洗后的数据
     merged_df = pd.concat(all_data, ignore_index=True)
