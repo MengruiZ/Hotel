@@ -53,7 +53,7 @@ spark = SparkSession.builder.appName("Festival Hotel Price Ranking").getOrCreate
 # 主函数
 def main():
 
-    input_file = "hdfs:///home/mengrui_zhang/hotel/Hotel/HotelData/cleaned_hotels.txt"
+    input_file = "hdfs://10.26.43.166:7130/home/mengrui_zhang/hotel/Hotel/HotelData/cleaned_hotels.txt"
     out_path = "results"
     os.makedirs(out_path, exist_ok=True)
 
