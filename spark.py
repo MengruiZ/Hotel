@@ -4,8 +4,6 @@ from pyspark.sql.window import Window
 import os
 import json
 
-# 初始化 SparkSession
-spark = SparkSession.builder.appName("Festival Hotel Price Ranking").getOrCreate()
 
 def write_json(df, path):
     data = df.toPandas().to_dict(orient="records")
@@ -43,8 +41,12 @@ def rank_top_n(df, group_keys, rank_by, n, name_prefix, out_path):
     ranked_df = ranked_df.drop("rank")
     write_json(ranked_df, f"{out_path}/{name_prefix}_top_{rank_by}.json")
 
+# 初始化 SparkSession
+spark = SparkSession.builder.appName("Festival Hotel Price Ranking").getOrCreate()
+
 # 主函数
 def main():
+
     input_file = "hdfs:///home/mengrui_zhang/hotel/Hotel/HotelData/cleaned_hotels.txt"
     out_path = "results"
     os.makedirs(out_path, exist_ok=True)
