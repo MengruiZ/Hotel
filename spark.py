@@ -45,7 +45,7 @@ def rank_top_n(df, group_keys, rank_by, n, name_prefix, out_path):
 
 # 主函数
 def main():
-    input_file = "hdfs:///user/mengrui_zhang/hotel/HotelData/cleaned_hotels.txt"
+    input_file = "hdfs:///home/mengrui_zhang/hotel/HotelData/cleaned_hotels.txt"
     out_path = "results"
     os.makedirs(out_path, exist_ok=True)
 
