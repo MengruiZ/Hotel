@@ -6,7 +6,7 @@ from pyecharts.charts import Map, Bar, Page
 from pyecharts import options as opts
 
 # === 配置 ===
-base_path = "result"       # 原始 JSON 数据目录
+base_path = "results"       # 原始 JSON 数据目录
 output_dir = "output"        # 所有 HTML 输出统一目录
 os.makedirs(output_dir, exist_ok=True)
 
