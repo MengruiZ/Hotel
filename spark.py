@@ -1,4 +1,5 @@
 from pyspark.sql import SparkSession
+from pyspark import SparkConf, SparkContext
 from pyspark.sql.functions import col, avg, stddev, max, min, when, round, row_number
 from pyspark.sql.window import Window
 import os
@@ -41,6 +42,11 @@ def rank_top_n(df, group_keys, rank_by, n, name_prefix, out_path):
     ranked_df = ranked_df.drop("rank")
     write_json(ranked_df, f"{out_path}/{name_prefix}_top_{rank_by}.json")
 
+
+conf = SparkConf()
+conf.set("spark.driver.bindAddress", "127.0.0.1")
+
+sc = SparkContext(conf=conf)
 # 初始化 SparkSession
 spark = SparkSession.builder.appName("Festival Hotel Price Ranking").getOrCreate()
 
