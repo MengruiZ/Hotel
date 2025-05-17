@@ -11,7 +11,7 @@ def clean_hotel_data():
     all_data = []
     with open(log_file, "w", encoding="utf-8") as log:
         for file in files:
-            # 读取 TSV 文件（制表符分隔）
+            # 读取 TXT 文件（制表符分隔）
             df = pd.read_csv("txt/"+file, sep='\t', dtype=str)
 
             # 转换“优惠价”为数字类型（有非法字符的转为 NaN）
@@ -20,7 +20,10 @@ def clean_hotel_data():
             # 去除以下缺失值的记录
             df_cleaned = df.dropna(subset=["优惠价", "酒店等级"]).loc[
                 (df["区县"].notna()) & (df["区县"].astype(str) != "[]")
+                ].loc[
+                (df["标准城市"].notna()) & (df["标准城市"].astype(str) != "[]")
                 ]
+            # 去除地理编码错误酒店
             df_cleaned = df_cleaned[df_cleaned.apply(lambda x: str(x["城市"]) in str(x["标准城市"]), axis=1)]
             # 对每家酒店保留日期数 >= 7 的
             df_cleaned["日期"] = pd.to_datetime(df_cleaned["日期"], errors="coerce")  # 确保日期格式正确

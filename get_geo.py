@@ -94,7 +94,7 @@ def geocode_amap(city, location, hotel):
         f"{city}市{location}",
     ])
     for addr in address_candidates:
-        for key in (AMAP_KEY1, AMAP_KEY2):  # 先尝试 KEY2，失败后用 KEY1
+        for key in (AMAP_KEY1, AMAP_KEY2):  # 先尝试 KEY1，失败后用 KEY2
             params = {"address": addr, "key": key}
             try:
                 resp = requests.get(AMAP_URL, params=params, timeout=5).json()
@@ -102,9 +102,6 @@ def geocode_amap(city, location, hotel):
                 print(f"请求失败 {addr}: {e}")
                 time.sleep(0.5)
                 continue
-
-            print(f"尝试地址: {addr} 使用Key: {key[-4:]} -> 返回: {resp}")
-
             status = resp.get("status")
             info_code = resp.get("infocode", "")
 
@@ -122,10 +119,7 @@ def geocode_amap(city, location, hotel):
                 print(f"Key 失效或配额限制，切换 Key：{key[-4:]}")
                 continue  # 切换到下一个 key 尝试
 
-            # 如果不是 key 的问题，退出 key 尝试，尝试下一个地址
             break
-
-            # 每个地址尝试后稍作延迟
         time.sleep(0.5)
 
     # 所有尝试都失败
