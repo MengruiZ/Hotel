@@ -143,5 +143,5 @@ def read_csvs_in_order(folder_path):
         process_csv_to_txt(file_path)
 
 if __name__ == '__main__':
-    os.makedirs("txt", exist_ok=True)
-    read_csvs_in_order("hotels")
+    os.makedirs("txt2", exist_ok=True)
+    read_csvs_in_order("special")
