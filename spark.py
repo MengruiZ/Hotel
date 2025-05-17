@@ -42,10 +42,13 @@ def rank_top_n(df, group_keys, rank_by, n, name_prefix, out_path):
     ranked_df = ranked_df.drop("rank")
     write_json(ranked_df, f"{out_path}/{name_prefix}_top_{rank_by}.json")
 
+from pyspark import SparkConf, SparkContext
+
+
 
 conf = SparkConf()
-conf.set("spark.driver.bindAddress", "127.0.0.1")
-
+conf.set("spark.executor.extraLibraryPath", "/home/mengrui_zhang/hadoop/lib/native")
+conf.set("spark.driver.extraLibraryPath", "/home/mengrui_zhang/hadoop/lib/native")
 sc = SparkContext(conf=conf)
 # 初始化 SparkSession
 spark = SparkSession.builder.appName("Festival Hotel Price Ranking").getOrCreate()
