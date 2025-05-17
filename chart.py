@@ -51,10 +51,10 @@ def generate_index(index_file="index.html"):
                 filepath = os.path.join("output", filename)
                 if "top10" in filename:
                     # 通过文件名判断指标
-                    if "节中" in filename:
-                        metric = "节中均价"
-                    elif "节中涨幅" in filename:
+                    if "节中涨幅" in filename:
                         metric = "节中涨幅"
+                    elif "节中" in filename:
+                        metric = "节中均价"
                     elif "节后回落率" in filename:
                         metric = "节后回落率"
                     elif "标准差" in filename:
@@ -138,7 +138,7 @@ def create_heatmap(data, value_key, title, level_name, maptype):
 
 def render_province(json_file):
     data = read_json(os.path.join(base_path, json_file))
-    metrics = ["节中涨幅", "节后回落率", "标准差"]
+    metrics = ["节中涨幅", "节后回落率", "标准差","节中"]
     hotel_types = set(d["酒店等级"] for d in data if "酒店等级" in d)
 
     for hotel in hotel_types:
@@ -153,7 +153,7 @@ def render_province(json_file):
 
 def render_city(json_file):
     data = read_json(os.path.join(base_path, json_file))
-    metrics = ["节中涨幅", "节后回落率", "标准差"]
+    metrics = ["节中涨幅", "节后回落率", "标准差","节中"]
     grouped = defaultdict(lambda: defaultdict(list))
 
     for d in data:
@@ -176,7 +176,7 @@ def render_city(json_file):
 
 def render_district(json_file):
     data = read_json(os.path.join(base_path, json_file))
-    metrics = ["节中涨幅", "节后回落率", "标准差"]
+    metrics = ["节中涨幅", "节后回落率", "标准差","节中"]
     grouped = defaultdict(lambda: defaultdict(list))
 
     for d in data:

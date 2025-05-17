@@ -45,14 +45,15 @@ def rank_top_n(df, group_keys, rank_by, n, name_prefix, out_path):
 from pyspark import SparkConf, SparkContext
 
 
-
+# 初始化 SparkSession
 conf = SparkConf()
 conf.set("spark.executor.extraLibraryPath", "/home/mengrui_zhang/hadoop/lib/native")
 conf.set("spark.driver.extraLibraryPath", "/home/mengrui_zhang/hadoop/lib/native")
 conf.set("spark.driver.bindAddress", "127.0.0.1")
 conf.set("spark.driver.host", "127.0.0.1")
+
 sc = SparkContext(conf=conf)
-# 初始化 SparkSession
+
 spark = SparkSession.builder.appName("Festival Hotel Price Ranking").getOrCreate()
 
 # 主函数
